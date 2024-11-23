@@ -1,0 +1,39 @@
+# .dockerignore
+
+# Version control
+.git
+.gitignore
+
+# Python
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.env
+
+# Development
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Data
+data/
+logs/
+*.log
+
+# Docker
+Dockerfile*
+docker-compose*
+.docker
+
+# Documentation
+docs/
+*.md
+
+# Tests
+tests/
+.pytest_cache/

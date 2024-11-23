@@ -1,0 +1,29 @@
+# environment.yaml
+name: nbastats
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.11
+  - pip
+  - pandas
+  - numpy
+  - scikit-learn
+  - tensorflow
+  - beautifulsoup4
+  - aiohttp
+  - fastapi
+  - uvicorn
+  - jupyter
+  - notebook
+  - black
+  - flake8
+  - pytest
+  - pytest-asyncio
+  - pip:
+    - azure-storage-blob
+    - azure-identity
+    - azure-keyvault-secrets
+    - azure-mgmt-containerservice
+    - azure-cosmos
+    - backoff    # Added this package

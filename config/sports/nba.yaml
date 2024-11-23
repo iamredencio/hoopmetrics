@@ -1,0 +1,78 @@
+# config/sports/nba.yaml
+name: NBA
+data_sources:
+  - source_type: basketball_reference
+    url: https://www.basketball-reference.com
+    rate_limit: 20
+    endpoints:
+      players: /players
+      teams: /teams
+      games: /leagues/NBA_{season}_games.html
+      player_stats: /leagues/NBA_{season}_per_game.html
+
+  - source_type: nba_stats
+    url: https://stats.nba.com/stats
+    rate_limit: 30
+    endpoints:
+      player_dashboard: /playerdashboardbygamesplits
+      team_dashboard: /teamdashboardbygeneralsplits
+      game_stats: /boxscoretraditionalv2
+
+ml_models:
+  player_performance:
+    model_type: gradient_boosting
+    features:
+      - minutes_played_ma_5
+      - points_ma_5
+      - assists_ma_5
+      - rebounds_ma_5
+      - field_goal_percentage_ma_5
+      - three_point_percentage_ma_5
+      - free_throw_percentage_ma_5
+      - plus_minus_ma_5
+      - days_since_last_game
+      - opponent_defensive_rating
+      - is_home_game
+      - back_to_back
+    target: fantasy_points
+    hyperparameters:
+      n_estimators: 100
+      max_depth: 6
+      learning_rate: 0.1
+    evaluation_metrics:
+      - mae
+      - rmse
+      - r2
+
+  game_outcome:
+    model_type: xgboost
+    features:
+      - team_offensive_rating_ma_5
+      - team_defensive_rating_ma_5
+      - opponent_offensive_rating_ma_5
+      - opponent_defensive_rating_ma_5
+      - team_pace_ma_5
+      - team_rest_days
+      - opponent_rest_days
+      - home_team
+      - win_streak
+    target: win_probability
+    hyperparameters:
+      n_estimators: 200
+      max_depth: 8
+      learning_rate: 0.05
+    evaluation_metrics:
+      - accuracy
+      - auc
+      - f1
+
+stats_mapping:
+  pts: points
+  ast: assists
+  reb: rebounds
+  stl: steals
+  blk: blocks
+  fg_pct: field_goal_percentage
+  fg3_pct: three_point_percentage
+  ft_pct: free_throw_percentage
+  min: minutes_played

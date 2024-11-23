@@ -1,0 +1,31 @@
+# config/ml/player_performance.yaml
+training:
+  batch_size: 32
+  epochs: 100
+  validation_split: 0.2
+  early_stopping_patience: 10
+
+model_architecture:
+  hidden_layers: [128, 64, 32]
+  dropout_rate: 0.2
+  activation: "relu"
+  learning_rate: 0.001
+
+feature_engineering:
+  moving_average_windows: [5, 10, 15]
+  include_opponent_stats: true
+  include_rest_days: true
+  include_back_to_back: true
+
+evaluation:
+  metrics:
+    - mae
+    - rmse
+    - r2
+  cross_validation_folds: 5
+
+deployment:
+  model_format: "joblib"
+  save_scaler: true
+  version_control: true
+  metrics_logging: true
