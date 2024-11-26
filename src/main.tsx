@@ -19,6 +19,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
     <ErrorBoundary>
       <SWRConfig 
         value={{
+          provider: () => new Map(),
           revalidateOnFocus: false,
           revalidateOnReconnect: false,
           dedupingInterval: 300000

@@ -18,6 +18,7 @@ type Tab = 'overview' | 'advanced' | 'highlights';
 export const PlayerDashboard: React.FC<PlayerDashboardProps> = ({ player }) => {
   const [activeTab, setActiveTab] = useState<Tab>('overview');
   const teamColor = teamColors[player.team];
+  const currentYearString: string = new Date().getFullYear().toString();
 
   const tabs = [
     { id: 'overview', label: 'Overview' },
@@ -52,7 +53,7 @@ export const PlayerDashboard: React.FC<PlayerDashboardProps> = ({ player }) => {
 
               <div className="col-span-12 lg:col-span-8 space-y-6">
                 <div className="bg-stats-dark rounded-2xl p-6 shadow-xl">
-                  <h3 className="text-lg font-semibold text-white mb-4">Season Performance</h3>
+                  <h3 className="text-lg font-semibold text-white mb-4">{currentYearString} Season Performance</h3>
                   <PerformanceChart stats={player.stats} teamColor={teamColor} />
                 </div>
                 <StatGrid player={player} teamColor={teamColor} />

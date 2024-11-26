@@ -11,6 +11,7 @@ export default {
         'nba-red': '#C8102E',
         'stats-dark': '#1a1a2e',
         'stats-darker': '#151515',
+        'nba-gold': '#FFD700',
       },
       fontFamily: {
         'display': ['Space Grotesk', 'system-ui', 'sans-serif'],

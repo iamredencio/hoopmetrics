@@ -1,5 +1,5 @@
 {
-  "name": "nba-stats",
+  "name": "hoopmetrics",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -26,7 +26,8 @@
     "axios": "^1.6.2",
     "axios-rate-limit": "^1.3.0",
     "swr": "^2.2.4",
-    "query-string": "^8.1.0"
+    "query-string": "^8.1.0",
+    "date-fns": "^2.30.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.37",
