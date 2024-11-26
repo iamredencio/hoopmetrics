@@ -5,22 +5,19 @@ import { Player } from '../types/player';
 
 const BASE_URL = 'https://api.balldontlie.io/v1';
 
-// Create rate-limited axios instance
 const api = rateLimit(axios.create({
   baseURL: BASE_URL,
   timeout: 10000,
 }), { 
   maxRequests: 60,
-  perMilliseconds: 60000 // 60 requests per minute
+  perMilliseconds: 60000
 });
 
-// Add response interceptor for error handling
 api.interceptors.response.use(
   response => response,
   error => {
     if (error.response?.status === 429) {
       console.error('Rate limit exceeded');
-      // Implement retry logic here if needed
     }
     return Promise.reject(error);
   }
@@ -31,6 +28,23 @@ export interface PlayerSearchParams {
   team?: string;
   page?: number;
   per_page?: number;
+}
+
+export interface GameStats {
+  id: number;
+  pts: number;
+  ast: number;
+  reb: number;
+  stl: number;
+  blk: number;
+  fg_pct: number;
+  fg3_pct: number;
+  min: string;
+  game: {
+    date: string;
+    home_team_score: number;
+    visitor_team_score: number;
+  };
 }
 
 export interface ApiResponse<T> {
@@ -59,5 +73,10 @@ export const nbaApi = {
   async getPlayerStats(id: number, season: number): Promise<any> {
     const { data } = await api.get(`/season_averages?season=${season}&player_ids[]=${id}`);
     return data.data[0];
+  },
+
+  async getPlayerGameStats(id: number, season: number): Promise<ApiResponse<GameStats>> {
+    const { data } = await api.get(`/stats?player_ids[]=${id}&seasons[]=${season}&per_page=82`);
+    return data;
   }
 };
